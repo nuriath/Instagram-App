@@ -18,12 +18,12 @@ def photos_of_day(request):
 @login_required(login_url='/accounts/login/')
 def photos_today(request):
     if request.method == 'POST':
-        form = PhotosLetterForm(request.POST)
+        form = NewImageForm(request.POST)
         if form.is_valid():
             print('valid')
-        form = PhotosLetterForm(request.POST)
+        form = NewImageForm(request.POST)
     else:
-        form = NewsLetterForm()
+        form = CommentForm()
 
         if form.is_valid():
             name = form.cleaned_data['your_name']
@@ -34,8 +34,8 @@ def photos_today(request):
 
             HttpResponseRedirect('photos_today')
         else:
-            form = PhotosForm()
-    return render(request, 'all-photos/today-photos.html', {"photos":photos,"PhotosForm":form})
+            form = NewImageForm()
+    return render(request, 'all-photos/today-photos.html', {"NewImageForm":form})
 
 @login_required(login_url='/accounts/login/')
 def new_image(request):
