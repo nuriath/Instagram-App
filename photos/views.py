@@ -79,12 +79,12 @@ def view_profile(request, id):
     pictures = Image.objects.filter(user_id=id)
     return render(request, 'view_profile.html',{"profile":profile , "photos":photos},)
 
-def comments(request, id):
+def comment(request, id):
     current_user = request.user
     post = Image.objects.get(id=id)
-    comments1 = Comments.objects.filter(image=post)
+    comments1 = Comment.objects.filter(image=post)
     if request.method == 'POST':
-        form = CommentsForm(request.POST, request.FILES)
+        form = CommentForm(request.POST, request.FILES)
 
         if form.is_valid():
             comment = form.cleaned_data['comment']
