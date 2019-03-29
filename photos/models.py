@@ -63,9 +63,9 @@ class PhotosRecipients(models.Model):
     email = models.TextField()
 
 class Comment(models.Model):
-    profile=models.ForeignKey(Profile, null=True)
+    profile = models.ForeignKey(Profile, null=True)
     comment = models.CharField(max_length =100)
-    image=models.ForeignKey(Image,on_delete=models.CASCADE,null=True)
+    image = models.ForeignKey(Image,on_delete=models.CASCADE,null=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
 
     def __str__(self):
