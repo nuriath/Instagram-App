@@ -10,17 +10,17 @@ class Profile(models.Model):
     bio = models.CharField(max_length =700)
     user_name = models.ForeignKey(User,on_delete=models.CASCADE)
   
-    def __str__(self):
-        return self.user_name
-
     def save_profile(self):
         self.save() 
+
+    def __str__(self):
+        return self.user_name
 
     class Meta:
         ordering = ['user_name']   
 
-    class likes(models.Model):
-        name = models.CharField(max_length =30)
+class likes(models.Model):
+    name = models.CharField(max_length =30)
 
      
     def __str__(self):
@@ -30,7 +30,7 @@ class Image(models.Model):
     image = models.ImageField(upload_to ='images/', blank=True)
     image_name = models.CharField(max_length =30)
     image_caption = models.CharField(max_length =30)
-    Profile = models.ForeignKey(Profile)
+    Profile = models.ForeignKey(Profile,null=True)
     user=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
 
     def save_image(self):
