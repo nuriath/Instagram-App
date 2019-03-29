@@ -60,7 +60,7 @@ class Image(models.Model):
 
 class PhotosRecipients(models.Model):
     name = models.CharField(max_length = 30)
-    email = models.EmailFi
+    email = models.TextField()
 
 class Comment(models.Model):
     profile=models.ForeignKey(Profile, null=True)

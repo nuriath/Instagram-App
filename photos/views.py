@@ -36,3 +36,38 @@ def photos_today(request):
         else:
             form = PhotosForm()
     return render(request, 'all-photos/today-photos.html', {"photos":photos,"PhotosForm":form})
+
+@login_required(login_url='/accounts/login/')
+def new_image(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.save(commit=False)
+            image.user=current_user
+            image.save()
+        return redirect('photosToday')
+
+    else:
+        form = NewImageForm()
+    return render(request, 'new_image.html', {"form": form})
+
+
+@login_required(login_url='/accounts/login/')
+def profile(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user=current_user
+            profile.bio=form.cleaned_data['bio']
+            profile.photo = form.cleaned_data['profile_photo']
+            profile.user=current_user
+            
+            profile.save()
+        return redirect('photosToday')
+
+    else:
+        form = ProfileForm()
+    return render(request, 'profile.html', {"form": form})
