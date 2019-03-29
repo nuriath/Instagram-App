@@ -10,9 +10,10 @@
 
   {%if title%}
 
-  <title>{{title}}</title>
-
-  {%endif%}
+  <title>Instagram- {{title}}</title>
+  {% else %}
+    <title> Instagram</title>
+  {% endif %}
 
   {% block styles %}
     {% bootstrap_css %}
