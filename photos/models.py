@@ -64,7 +64,7 @@ class PhotosRecipients(models.Model):
 
 class Comment(models.Model):
     profile=models.ForeignKey(Profile, null=True)
-    comments = models.CharField(max_length =100)
+    comment = models.CharField(max_length =100)
     image=models.ForeignKey(Image,on_delete=models.CASCADE,null=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
 
