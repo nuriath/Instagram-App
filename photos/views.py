@@ -77,4 +77,20 @@ def view_profile(request, id):
 
     profile=Profile.objects.get(user_id=id)
     pictures = Image.objects.filter(user_id=id)
-    return render(request, 'view_profile.html',{"profile":profile , "pictures":pictures},)
+    return render(request, 'view_profile.html',{"profile":profile , "photos":photos},)
+
+def comments(request, id):
+    current_user = request.user
+    post = Image.objects.get(id=id)
+    comments1 = Comments.objects.filter(image=post)
+    if request.method == 'POST':
+        form = CommentsForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            comment = form.cleaned_data['comment']
+            new_comment = Comment(comment = comment,user =current_user,image=post)
+            new_comment.save()
+
+    else:
+        form = CommentForm()
+    return render(request, 'comments.html', {"form":form,'post':post,'user':current_user,'comment':comment1})

@@ -1,0 +1,52 @@
+{% load bootstrap3 %} {% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<body>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>New Image</title>
+  {{form.media}}
+
+{% block styles %} {% bootstrap_css %}
+  <link rel="stylesheet" href="{% static 'css/pictures.css' %}"> {% endblock %}
+
+</head>
+
+
+    <div class="col-md-8" id="im">
+        <div class="com">
+     <img src="{{post.image.url}}"  class="img-responsive" alt="" ><br>
+     
+     <p>Name:{{post.image_name}}</p>
+     <p>Caption:{{post.image_caption}}</p>
+   
+</div> 
+</div>
+  <form  action="{%url 'comments' post.id %}" method="post" enctype="multipart/form-data">
+    {%csrf_token%}
+
+    {% bootstrap_form form%}
+    <input type="submit" class="btn btn-success btn-lg" value="Post">
+  </form>
+
+
+   {% block scripts %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  {% bootstrap_javascript %} {% endblock %}
+
+{%block content%}
+<center>
+{%for comment in comment %}
+<a><p>{{comment.user.username}}</p></a><p>{{comment.comment}}</p> 
+
+{%empty%}
+{%endfor%}
+</center>
+{%endblock%}
+</body>
+
+</html>
+
