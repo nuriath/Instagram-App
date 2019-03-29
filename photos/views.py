@@ -71,3 +71,10 @@ def profile(request):
     else:
         form = ProfileForm()
     return render(request, 'profile.html', {"form": form})
+
+@login_required(login_url='/accounts/login/')
+def view_profile(request, id):
+
+    profile=Profile.objects.get(user_id=id)
+    pictures = Image.objects.filter(user_id=id)
+    return render(request, 'view_profile.html',{"profile":profile , "pictures":pictures},)
