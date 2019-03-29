@@ -1,5 +1,17 @@
 from django import forms
+from .models import Image, Profile, Comment
 
-class InstagramForm(forms.Form):
-    your_name = forms.CharField(label='First Name',max_length=30)
-    email = forms.EmailField(label='Email')
+
+class CommentForm(forms.Form):
+    comment = forms.CharField(label='Comment',max_length=100)
+
+class NewImageForm(forms.ModelForm):
+    class Meta:
+        model = Image
+        exclude = ['profile', 'pub_date','likes']
+     
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        exclude = ['user', 'pub_date','likes']
