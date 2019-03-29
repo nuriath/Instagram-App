@@ -43,14 +43,9 @@ class Image(models.Model):
         self.update_caption()
 
     @classmethod
-    def todays_photos(cls):
-        today = dt.date.today()
-        photos = cls.objects.filter(pub_date__date = today)
-        return photos
-
-    @classmethod
-    def days_photos(cls,date):
-        photos = cls.objects.filter(pub_date__date = date)
+    def all_photos(cls):
+       
+        photos = cls.objects.all()
         return photos
 
     @classmethod

@@ -46,7 +46,7 @@ def new_image(request):
             image = form.save(commit=False)
             image.user=current_user
             image.save()
-        return redirect('photosToday')
+        return redirect('photos_today')
 
     else:
         form = NewImageForm()
@@ -66,7 +66,7 @@ def profile(request):
             profile.user=current_user
             
             profile.save()
-        return redirect('photosToday')
+        return redirect('photos_today')
 
     else:
         form = ProfileForm()

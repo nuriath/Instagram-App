@@ -4,10 +4,10 @@ from django.conf.urls.static import static
 from . import views
 
 urlpatterns=[
-    url(r'^$',views.photos_of_day,name='photosToday'),
-    url(r'^new/image$', views.new_image, name='new-image'),
+    url(r'^$',views.photos_of_day,name='photos_of_day'),
+    url(r'^new/image$', views.new_image, name='new_image'),
     url(r'^profile/', views.profile, name='profile'),
-    url(r'^view/profile/(\d+)', views.view_profile, name='view-profile'),
+    url(r'^view/profile/(\d+)', views.view_profile, name='view_profile'),
     url(r'^comment/(\d+)', views.comment, name='comment'),
 ]
 

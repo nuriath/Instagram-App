@@ -7,5 +7,5 @@ class ImageAdmin(admin.ModelAdmin):
 
 admin.site.register(Profile)
 admin.site.register(Image)
-admin.site.register(Comments)
+admin.site.register(Comment)
 
