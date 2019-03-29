@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet">
-    <a class="navbar-brand" href="{% url 'photosToday' %}">Instagram </a>
+    <a class="navbar-brand" href="{% url 'photos_of_day' %}">Instagram </a>
     </div>
     <div class="col-sm-6 col-md-6">
       {% if user.is_authenticated %}
@@ -16,10 +16,10 @@
                 <a href="{%url 'photos_of_day'%}">Home</a>
               </li>
               <li>
-                <a href="{%url 'new-image'%}">Add Image</a>
+                <a href="{%url 'new_image'%}">Add Image</a>
               </li>
               <li>
-                <a href="{%url 'view-profile' user.id %}">View Profile</a>
+                <a href="{%url 'view_profile' user.id %}">View Profile</a>
               </li>
               <li>
                 <a href="{%url 'profile'%}">Edit Profile</a>
