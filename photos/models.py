@@ -10,11 +10,24 @@ class Profile(models.Model):
     bio = models.CharField(max_length =700)
     user_name = models.ForeignKey(User,on_delete=models.CASCADE)
   
-    def save_profile(self):
-        self.save() 
-
     def __str__(self):
         return self.user_name
+
+    def save_profile(self):
+        self.save() 
+    
+    def delete_profile(self):
+        self.delete()
+
+    @classmethod
+    def get_profile(cls):
+        profile = cls.objects.all()
+        return profile
+
+    @classmethod
+    def search_by_username(cls,search_term):
+        profile = cls.objects.filter(first_name__icontains=search_term)
+        return profile
 
     class Meta:
         ordering = ['user_name']   
@@ -33,30 +46,21 @@ class Image(models.Model):
     Profile = models.ForeignKey(Profile,null=True)
     user=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
 
+    def __str__(self):
+        return self.image_name
+
+
     def save_image(self):
         self.save()
 
     def delete_image(self):
         self.delete()
      
-    def update_caption(self):
-        self.update_caption()
-
     @classmethod
-    def all_photos(cls):
-       
-        photos = cls.objects.all()
-        return photos
-
-    @classmethod
-    def search_by_title(cls,search_term):
-        photos = cls.objects.filter(title__icontains=search_term)
-        return photos
-
-class PhotosRecipients(models.Model):
-    name = models.CharField(max_length = 30)
-    email = models.TextField()
-
+    def get_image(cls):
+        image = cls.objects.all()
+        return image    
+   
 class Comment(models.Model):
     profile = models.ForeignKey(Profile, null=True)
     comment = models.CharField(max_length =100)
@@ -64,7 +68,7 @@ class Comment(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
 
     def __str__(self):
-            return self.user_name
+        return self.user
 
     def save_commet(self):
         self.save()
@@ -72,7 +76,13 @@ class Comment(models.Model):
     def delete_commet(self):
         self.delete()
         
-    
+class Like(models.Model):
+    likes= models.IntegerField(default=0)
+    image = models.ForeignKey(Image, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.like 
     
 
 

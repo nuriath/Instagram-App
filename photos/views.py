@@ -6,6 +6,8 @@ from .models import Image, Profile, Comment
 import datetime as dt
 from .forms import NewImageForm, ProfileForm,CommentForm
 from .email import send_welcome_email
+from django.contrib.auth.models import User
+
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
@@ -45,7 +47,7 @@ def new_image(request):
             image = form.save(commit=False)
             image.user=current_user
             image.save()
-        return redirect('photos_today')
+        return redirect('profile')
 
     else:
         form = NewImageForm()
@@ -62,7 +64,7 @@ def profile(request):
             profile.user = current_user
             profile.save()
 
-        return redirect(profile)
+        return redirect('view_profile')
 
     else:
         form = ProfileForm()
@@ -90,3 +92,18 @@ def comment(request, id):
     else:
         form = CommentForm()
     return render(request, 'comments.html', {"form":form,'post':post,'user':current_user,'comment':comment1})
+
+def like(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = LikeForm(request.POST, request.FILES)
+        if form.is_valid():
+            like = form.save(commit=False)
+            like.user = current_user
+            like.save()
+
+            return redirect(home)
+
+    else:
+        form = LikeForm()
+    return render(request, 'like.html', {"form": form})
