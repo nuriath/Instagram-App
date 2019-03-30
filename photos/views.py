@@ -6,14 +6,13 @@ from .models import Image, Profile, Comment
 import datetime as dt
 from .forms import NewImageForm, ProfileForm,CommentForm
 from .email import send_welcome_email
-from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
 def photos_of_day(request):
     date = dt.date.today()
     photos = Image.objects.all()
-    return render(request, 'all-photos/today-photos.html', {'photos':photos})
+    return render(request, 'all-photos/today_photos.html', {'photos':photos})
 
 @login_required(login_url='/accounts/login/')
 def photos_today(request):
@@ -35,7 +34,7 @@ def photos_today(request):
             HttpResponseRedirect('photos_today')
         else:
             form = NewImageForm()
-    return render(request, 'all-photos/today-photos.html', {"NewImageForm":form})
+    return render(request, 'all-photos/today_photos.html', {"NewImageForm":form})
 
 @login_required(login_url='/accounts/login/')
 def new_image(request):
@@ -60,13 +59,10 @@ def profile(request):
         form = ProfileForm(request.POST, request.FILES)
         if form.is_valid():
             profile = form.save(commit=False)
-            profile.user=current_user
-            profile.bio=form.cleaned_data['bio']
-            profile.photo = form.cleaned_data['profile_photo']
-            profile.user=current_user
-            
+            profile.user = current_user
             profile.save()
-        return redirect('view_profile',{"profile":profile})
+
+        return redirect(profile)
 
     else:
         form = ProfileForm()

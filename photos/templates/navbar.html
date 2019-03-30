@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet">
-    <a class="navbar-brand" href="{% url 'photos_of_day' %}">Instagram </a>
+    <a class="navbar-brand" href="{% url 'photos_today' %}">Instagram </a>
     </div>
     <div class="col-sm-6 col-md-6">
       {% if user.is_authenticated %}
@@ -13,7 +13,7 @@
               </a>
             <ul class="dropdown-menu" role="menu">
               <li>
-                <a href="{%url 'photos_of_day'%}">Home</a>
+                <a href="{%url 'photos_today'%}">Home</a>
               </li>
               <li>
                 <a href="{%url 'new_image'%}">Add Image</a>

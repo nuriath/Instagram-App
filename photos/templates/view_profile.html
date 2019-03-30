@@ -1,5 +1,5 @@
 {%extends 'all-photos/base.html'%}
-
+{% include "navbar.html" %}
  {% block content %}
 <p>{{profile.user_name}}</p>
   <div class="container  top">
@@ -10,35 +10,16 @@
       <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
       <h1>{{profile.bio}}</h1>
       </div>
-      <!-- <div class="col-md-4 col-sm-4">
       
-      </div> -->
-   
-
-    
-    </div>
-    
-  
-
-    
+    </div>  
     {% for photos_item in photos %}
       <div class="col-md-4 col-sm-4 images" style="margin-top:100px;">
       <img src="{{photos_item.image.url}}"  alt="Image" width="300" height="300">
     </div>
   
-
-
-
-    
-
   {% empty %}
   
     <h2 class="text-center">There No photos Items</h2>
 
   {% endfor %}
-
-  </div>
-  
-
-
  {% endblock %}

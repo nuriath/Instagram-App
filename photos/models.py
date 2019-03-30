@@ -72,9 +72,7 @@ class Comment(models.Model):
     def delete_commet(self):
         self.delete()
         
-    def __str__(self):
-            return self.name   
-     
+    
     
 
 
