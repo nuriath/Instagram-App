@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<nav style="background-color:rgb(100, 119, 119);padding:50px;font-family: monospace;color:black;">
+<nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="{% url 'welcome' %}" style="color:black;"><strong>HOME</strong></a>
+      <a class="navbar-brand" href="{% url 'welcome' %}"><strong>Instgram</strong></a>
       
     </div>
  
@@ -23,39 +23,39 @@
                   </a>
             <ul class="dropdown-menu" role="menu">
               <li>
-                <a href="{%url 'welcome'%}"><strong>Home</strong></a>
+                <a href="{%url 'welcome'%}">Home</a>
               </li>
               <li>
-                <a href="{%url 'myProfile' user.id%}"><strong>View Profile</strong></a>
+              <a href="{%url 'image'%}">Add image</a>
               </li>
               <li>
-                  <a href="{%url 'profile'%}"><strong>Add Profile</strong></a>
-                </li>
-              <li>
-                <a href="/accounts/password/change"><strong>Change Password</strong></a>
+                <a href="{%url 'profile'%}">Add Profile</a>
               </li>
               <li>
-                <a href="/logout"><strong>Logout</strong></a>
+                <a href="{%url 'myProfile' user.id%}">View Profile</a>
+              </li>
+              
+              <li>
+                <a href="/accounts/password/change">Change Password</a>
+              </li>
+              <li>
+                <a href="/logout">Logout</a>
               </li>
             </ul>
           </li>
         </ul>
         {% else %}
         <li>
-          <a class='btn btn-default' href="/accounts/login"><strong>Login</strong></a>
+          <a class='btn btn-default' href="/accounts/login">Login</a>
         </li>
 
         {% endif %}
       </div>
 
-      <div class="nav navbar-nav navbar-right">
-
-          <button class="well"><a href="{%url 'image'%}"   style="text-align: center;padding-left:50px;font-family: monospace;color:black;"><strong>ADD IMAGE</strong></a></button>
-   
-         </div>
+      
     </div>  
 
-    <h1 style="background-color:rgb(55, 66, 66);padding:50px;font-family: monospace;text-align:center;opacity: 0.8;">I N S T A G</h1>
+    <h1 style="color:whitesmoke;padding:50px;font-family: monospace;text-align:center;opacity: 0.8;">Instagram</h1>
 </nav>
 </body>
 </html>

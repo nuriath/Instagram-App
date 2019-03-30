@@ -11,7 +11,7 @@ class ProfileTestClass(TestCase):
 
     # Set up method
     def setUp(self):
-        self.prof= Profile(first_name = 'Hat', last_name ='Nic',prof_image = "drgf xghbvsk", bio = "vg fdgk dsgf")
+        self.user= Profile(first_name = 'Nuriath', last_name ='Mwangaza',prof_image = "drgf xghbvsk", bio = "vg fdgk dsgf")
   
     def test_instance(self):
         self.assertTrue(isinstance(self.prof,Profile))

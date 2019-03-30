@@ -31,7 +31,7 @@ def myProfile(request,id):
     profiles = Profile.objects.get(user = user)
     images = Image.objects.filter(user = user).all()
    
-    return render(request,'my_profile.html',{"profiles":profiles,"user":user,"images":images})
+    return render(request,'view_profile.html',{"profiles":profiles,"user":user,"images":images})
 
 def profile(request):
     current_user = request.user
@@ -61,7 +61,7 @@ def image(request):
 
     else:
         form = ImageForm()
-    return render(request, 'image.html', {"form": form})
+    return render(request, 'new_image.html', {"form": form})
 
 def comments(request):
     current_user = request.user
