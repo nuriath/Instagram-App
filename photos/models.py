@@ -26,7 +26,7 @@ class Profile(models.Model):
 
     @classmethod
     def search_by_username(cls,search_term):
-        profile = cls.objects.filter(first_name__icontains=search_term)
+        profile = cls.objects.filter(user_name__icontains=search_term)
         return profile
 
     class Meta:

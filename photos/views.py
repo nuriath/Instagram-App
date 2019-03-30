@@ -64,7 +64,7 @@ def profile(request):
             profile.user = current_user
             profile.save()
 
-        return redirect('view_profile')
+        return redirect('photos_today')
 
     else:
         form = ProfileForm()
@@ -73,7 +73,7 @@ def profile(request):
 @login_required(login_url='/accounts/login/')
 def view_profile(request, id):
 
-    profile=Profile.objects.get(user_name_id=id)
+    profile=Profile.objects.filter(user_name=id)
     photos = Image.objects.filter(id=id)
     return render(request, 'view_profile.html',{"profile":profile , "photos":photos},)
 
@@ -102,7 +102,7 @@ def like(request):
             like.user = current_user
             like.save()
 
-            return redirect(home)
+            return redirect('photos_today')
 
     else:
         form = LikeForm()
