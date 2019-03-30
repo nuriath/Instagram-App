@@ -1,60 +1,38 @@
-
 from django.shortcuts import render,redirect
-from django.http  import HttpResponse,Http404,HttpResponseRedirect
+from django.http  import HttpResponse,HttpResponseRedirect
+from .forms import ProfileForm,ImageForm,CommentsForm,LikeForm
+from .models import Image,Profile,Comments,Like
 from django.contrib.auth.decorators import login_required
-from .models import Image, Profile, Comment
-import datetime as dt
-from .forms import NewImageForm, ProfileForm,CommentForm
-from .email import send_welcome_email
 from django.contrib.auth.models import User
 
-
-# Create your views here.
 @login_required(login_url='/accounts/login/')
-def photos_of_day(request):
-    date = dt.date.today()
-    photos = Image.objects.all()
-    return render(request, 'all-photos/today_photos.html', {'photos':photos})
+def home(request):
+    images = Image.objects.all()
 
-@login_required(login_url='/accounts/login/')
-def photos_today(request):
-    if request.method == 'POST':
-        form = NewImageForm(request.POST)
-        if form.is_valid():
-            print('valid')
-        form = NewImageForm(request.POST)
-    else:
-        form = CommentForm()
-
-        if form.is_valid():
-            name = form.cleaned_data['your_name']
-            email = form.cleaned_data['email']
-            recipient = PhotosRecipients(name = name,email =email)
-            recipient.save()
-            send_welcome_email(name,email)
-
-            HttpResponseRedirect('photos_today')
-        else:
-            form = NewImageForm()
-    return render(request, 'all-photos/today_photos.html', {"NewImageForm":form})
+    profile = Profile.objects.all()
+    return render(request,'index.html',{"images":images,"profile":profile})
 
 @login_required(login_url='/accounts/login/')
-def new_image(request):
-    current_user = request.user
-    if request.method == 'POST':
-        form = NewImageForm(request.POST, request.FILES)
-        if form.is_valid():
-            image = form.save(commit=False)
-            image.user=current_user
-            image.save()
-        return redirect('profile')
+def com(request,image_id):
+    image = Image.objects.get(id = image_id)
+    comments = Comments.objects.filter(image = image.id).all() 
+    likes = Like.objects.filter(image = image.id).all() 
 
-    else:
-        form = NewImageForm()
-    return render(request, 'new_image.html', {"form": form})
-
+    return render(request,'inde.html',{"image":image,"comments":comments,"likes":likes})
 
 @login_required(login_url='/accounts/login/')
+def images(request,image_id):
+    image = Image.objects.get(id = image_id)
+    return render(request,"info.html", {"image":image})
+
+@login_required(login_url='/accounts/login/')
+def myProfile(request,id):
+    user = User.objects.get(id = id)
+    profiles = Profile.objects.get(user = user)
+    images = Image.objects.filter(user = user).all()
+   
+    return render(request,'my_profile.html',{"profiles":profiles,"user":user,"images":images})
+
 def profile(request):
     current_user = request.user
     if request.method == 'POST':
@@ -64,45 +42,53 @@ def profile(request):
             profile.user = current_user
             profile.save()
 
-        return redirect('photos_today')
+        return redirect(home)
 
     else:
         form = ProfileForm()
     return render(request, 'profile.html', {"form": form})
 
-@login_required(login_url='/accounts/login/')
-def view_profile(request, id):
-
-    profile=Profile.objects.filter(user_name=id)
-    photos = Image.objects.filter(id=id)
-    return render(request, 'view_profile.html',{"profile":profile , "photos":photos},)
-
-def comment(request, id):
+def image(request):
     current_user = request.user
-    post = Image.objects.get(id=id)
-    comments1 = Comment.objects.filter(image=post)
     if request.method == 'POST':
-        form = CommentForm(request.POST, request.FILES)
-
+        form = ImageForm(request.POST, request.FILES)
         if form.is_valid():
-            comment = form.cleaned_data['comment']
-            new_comment = Comment(comment = comment,user =current_user,image=post)
-            new_comment.save()
+            image = form.save(commit=False)
+            image.user = current_user
+            image.save()
+
+            return redirect(home)
 
     else:
-        form = CommentForm()
-    return render(request, 'comments.html', {"form":form,'post':post,'user':current_user,'comment':comment1})
+        form = ImageForm()
+    return render(request, 'image.html', {"form": form})
+
+def comments(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = CommentsForm(request.POST, request.FILES)
+        if form.is_valid():
+            comments = form.save(commit=False)
+            comments.user = current_user
+            comments.save()
+
+            return redirect(home)
+
+    else:
+        form = CommentsForm()
+    return render(request, 'comment.html', {"form": form})
+
 
 def like(request):
     current_user = request.user
     if request.method == 'POST':
         form = LikeForm(request.POST, request.FILES)
         if form.is_valid():
-            like = form.save(commit=False)
-            like.user = current_user
-            like.save()
+            likes = form.save(commit=False)
+            likes.user = current_user
+            likes.save()
 
-            return redirect('photos_today')
+            return redirect(home)
 
     else:
         form = LikeForm()

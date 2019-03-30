@@ -1,15 +1,17 @@
 from django.conf.urls import url
+from . import views
 from django.conf import settings
 from django.conf.urls.static import static
-from . import views
 
 urlpatterns=[
-    url(r'^$',views.photos_today,name='photos_today'),
-    url(r'^new_image$', views.new_image, name='new_image'),
+    url(r'^$',views.home,name = 'welcome'),
     url(r'^profile/', views.profile, name='profile'),
-    url(r'^view_profile/(\d+)', views.view_profile, name='view_profile'),
-    url(r'^comment/(\d+)', views.comment, name='comment'),
+    url(r'^myProfile/(\d+)', views.myProfile, name='myProfile'),
+    url(r'^image/', views.image, name='image'),
+    url(r'^comments/', views.comments, name='comments'),
+    url(r'^com/(\d+)', views.com, name='com'),
+    url(r'^images/(\d+)',views.images,name ='images'),
+    url(r'^like/',views.like,name ='like'),
 ]
-
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

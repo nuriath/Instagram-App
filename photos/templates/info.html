@@ -1,0 +1,40 @@
+{%extends 'base.html'%}
+
+ {% block content %}
+
+ <body>
+
+ <div class="container">
+
+        <div class="row" style="color:rgb(108, 122, 122);font-family: monospace;">
+                <h1 class="text-center" class="well">{{image.name}}</h1>
+                <br>
+                <h3 class="text-center">Added <strong>{{image.user}}</strong></h3>
+            </div>
+
+    <div class="row">
+        <a href="/com/{{image.id}}"><img src="{{image.image.url}}"  class="img-responsive" alt=""></a>
+    </div>
+    
+    <div class="row" style="color:rgb(99, 110, 110);font-family: monospace;">
+        <h4 ><strong>Posted on: {{image.post_date}}</strong></h4>
+    </div>
+       
+    <div class="row" style="color:rgb(99, 110, 110);font-family: monospace;">
+        <h4 ><strong>Caption: {{image.caption}}</strong></h4>
+    </div>
+    <div class="nav navbar-nav navbar-right">
+
+            <button class="well"><a href="{%url 'comments'%}"   style="text-align: center;padding-left:50px;font-family: monospace;color:black;"><strong>COMMENTS</strong></a></button>
+     
+           </div>
+
+           <div class="nav navbar-nav navbar-left">
+
+            <button class="well"><a href="{%url 'like'%}"   style="text-align: center;padding-left:50px;font-family: monospace;color:black;"><strong>LIKE</strong></a></button>
+     
+           </div>
+</div>
+       
+{% endblock %}
+</body>

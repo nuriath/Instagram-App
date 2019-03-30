@@ -1,0 +1,30 @@
+{%extends 'base.html'%}
+
+{% block content %}
+{{block.super}}
+
+<body>
+    <div class = "container">
+      <div class="well">
+         <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">VIEW ALL PROFILES</button>
+         <div id="demo" class="collapse">
+          
+         {% for profs in profile %}
+    
+            <a href="{%url 'myProfile' profs.id%}"><p style="color:rgb(53, 68, 53);padding:5px;font-size: 20px;font-family: monospace;"><strong>{{profs.first_name}}</strong></p></a>
+
+         {% endfor %}         
+            
+         </div> 
+      </div>
+
+            {% for profs in images %}
+            
+               <a href="/images/{{profs.id}}"><img src="{{profs.image.url}}" alt="Image"></a>         
+            {% endfor %}
+
+     </div>
+</body>
+
+
+{% endblock %}

@@ -1,88 +1,70 @@
 from django.db import models
-import datetime as dt
 from django.contrib.auth.models import User
-from tinymce.models import HTMLField
 
 # Create your models here.
 
 class Profile(models.Model):
-    profile_photo = models.ImageField(upload_to ="images/")
-    bio = models.CharField(max_length =700)
-    user_name = models.ForeignKey(User,on_delete=models.CASCADE)
-  
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    prof_image = models.ImageField(upload_to = 'gramys/')
+    bio = models.CharField(max_length =200)
+
     def __str__(self):
-        return self.user_name
+        return self.first_name
 
     def save_profile(self):
-        self.save() 
-    
+        self.save()
+
     def delete_profile(self):
         self.delete()
 
     @classmethod
     def get_profile(cls):
-        profile = cls.objects.all()
-        return profile
+        profiles = cls.objects.all()
+        return profiles
 
     @classmethod
     def search_by_username(cls,search_term):
-        profile = cls.objects.filter(user_name__icontains=search_term)
-        return profile
-
-    class Meta:
-        ordering = ['user_name']   
-
-class likes(models.Model):
-    name = models.CharField(max_length =30)
-
-     
-    def __str__(self):
-        return self.name
+        profiles = cls.objects.filter(first_name__icontains=search_term)
+        return profiles
 
 class Image(models.Model):
-    image = models.ImageField(upload_to ='images/', blank=True)
-    image_name = models.CharField(max_length =30)
-    image_caption = models.CharField(max_length =30)
-    Profile = models.ForeignKey(Profile,null=True)
-    user=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
-
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    image = models.ImageField(upload_to = 'gramys/')
+    name = models.CharField(max_length =60)
+    post_date = models.DateTimeField(auto_now=True)
+    caption = models.CharField(max_length =200)
+   
     def __str__(self):
-        return self.image_name
-
+        return self.name
 
     def save_image(self):
         self.save()
 
+    @classmethod
+    def get_images(cls):
+        images = cls.objects.all()
+        return images    
+
     def delete_image(self):
         self.delete()
-     
-    @classmethod
-    def get_image(cls):
-        image = cls.objects.all()
-        return image    
-   
-class Comment(models.Model):
-    profile = models.ForeignKey(Profile, null=True)
-    comment = models.CharField(max_length =100)
-    image = models.ForeignKey(Image,on_delete=models.CASCADE,null=True)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.user
+class Comments(models.Model):
+    comment = models.CharField(max_length = 300)
+    image = models.ForeignKey(Image, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    def save_commet(self):
+    def save_comment(self):
         self.save()
 
-    def delete_commet(self):
+    def delete_comment(self):
         self.delete()
-        
+
 class Like(models.Model):
     likes= models.IntegerField(default=0)
     image = models.ForeignKey(Image, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.like 
-    
-
-
+        return self.likes

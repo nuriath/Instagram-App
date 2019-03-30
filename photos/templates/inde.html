@@ -1,0 +1,49 @@
+{%extends 'base.html'%}
+
+{% block content %}
+{{block.super}}
+
+<body>
+    <div class = "container">
+
+      
+
+ 
+
+              
+                <img src="{{image.image.url}}">      
+
+
+                <h3>Comments</h3>
+                ---------------------
+
+                <br>
+
+                <br>
+                {% for hi in comments %}
+
+                <p style="color: black;"><strong>{{hi.user}} : {{hi.comment}}</strong></p>
+               
+                {% endfor %}
+                <br>
+                <br>
+        <h3>Likes</h3>
+        --------------------
+                
+    {% if likes %}
+      <h2><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFDBS_JDzMSZg7m1QDLl3cjMmjNHSmErDAjZWD__rSJMO1DWUENA" height="2">{{ likes|length }}</h2>
+    {% else %}
+      <h2>No Likes Yet !</h2>
+    {% endif %}
+            
+            
+               
+            
+       
+
+
+     </div>
+</body>
+
+</html>
+{% endblock %}
