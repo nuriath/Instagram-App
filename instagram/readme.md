@@ -45,3 +45,7 @@
 ## Support and contact details
 
 - E-mail:mnuriath28@gmail.com 
+
+## License
+
+-MIT Copyright (c) 2019 Mwangaza Nuriath
