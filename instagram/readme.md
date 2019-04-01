@@ -35,3 +35,13 @@
 ## Run the app
 
 - python3.6 manage.py runserver
+
+## Technologies used
+
+- Google chorome
+- Terminal
+- Python3.6(Flask)
+
+## Support and contact details
+
+- E-mail:mnuriath28@gmail.com 
