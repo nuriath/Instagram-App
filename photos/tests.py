@@ -11,7 +11,7 @@ class ProfileTestClass(TestCase):
 
     # Set up method
     def setUp(self):
-        self.user= Profile(first_name = 'Nuriath', last_name ='Mwangaza',prof_image = "drgf xghbvsk", bio = "vg fdgk dsgf")
+        self.user= Profile(first_name = 'Nuriath', last_name ='Mwangaza')
   
     def test_instance(self):
         self.assertTrue(isinstance(self.prof,Profile))
@@ -23,7 +23,7 @@ class ImageTestClass(TestCase):
     '''
 
     def setUp(self):
-        self.prof= Profile(first_name = 'Nuriath', last_name ='Mwangaza',prof_image = "drgf xghbvsk", bio = "vg fdgk dsgf")
+        self.prof= Profile(first_name = 'Nuriath', last_name ='Mwangaza',)
         self.prof.save()  
 
         self.new_image= Image(image = 'bsdzsfbg.jpeg',name = 'sdgcfsdhf',caption = 'a way to live adventure',likes = 1,profile = self.prof,user = " ")
