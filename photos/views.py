@@ -13,7 +13,7 @@ def home(request):
     return render(request,'index.html',{"images":images,"profile":profile})
 
 @login_required(login_url='/accounts/login/')
-def com(request,image_id):
+def view_comment(request,image_id):
     image = Image.objects.get(id = image_id)
     comments = Comments.objects.filter(image = image.id).all() 
     likes = Like.objects.filter(image = image.id).all() 

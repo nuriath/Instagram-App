@@ -23,7 +23,7 @@ class ImageTestClass(TestCase):
     '''
 
     def setUp(self):
-        self.prof= Profile(first_name = 'Hat', last_name ='Nic',prof_image = "drgf xghbvsk", bio = "vg fdgk dsgf")
+        self.prof= Profile(first_name = 'Nuriath', last_name ='Mwangaza',prof_image = "drgf xghbvsk", bio = "vg fdgk dsgf")
         self.prof.save()  
 
         self.new_image= Image(image = 'bsdzsfbg.jpeg',name = 'sdgcfsdhf',caption = 'a way to live adventure',likes = 1,profile = self.prof,user = " ")
